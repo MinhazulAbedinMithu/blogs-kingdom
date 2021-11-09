@@ -2,14 +2,16 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
+const multer = require("multer"); //for file upload
 const authRoute = require("./routes/auth");
+const userRoute = require("./routes/users");
+const postRoute = require("./routes/posts");
+const categoryRoute = require("./routes/categories");
 
 dotenv.config();
 
 const PORT = process.env.PORT || 5000;
-const MONGO_URL =
-	process.env.MONGO_URL ||
-	`mongodb+srv://root:toor@cluster0.zolqe.mongodb.net/blogs-kingdom?retryWrites=true&w=majority`;
+const MONGO_URL = process.env.MONGO_URL;
 
 const app = express();
 // app.use(bodyParser.urlencoded({ extended: false }));
@@ -26,6 +28,9 @@ mongoose
 
 //Routes
 app.use("/api/auth", authRoute);
+app.use("/api/users", userRoute);
+app.use("/api/posts", postRoute);
+app.use("/api/categories", categoryRoute);
 
 app.listen(PORT, () => {
 	console.log("App listening successful.");
